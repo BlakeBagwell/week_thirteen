@@ -3,11 +3,7 @@
 // Generate a random number and then dispatch it as
 // an action.
 function reducer(state, action) {
-  if(action.type === 'heads') {
-    return 'images/quarter-front.png';
-  } else if (action.type === 'tails') {
-    return 'images/quarter-back.png';
-  }
+
 }
 
 export default reducer;

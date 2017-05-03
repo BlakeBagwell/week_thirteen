@@ -12,17 +12,30 @@ const IMAGES = [
   'images/monorail.jpg',
 ];
 
-let store = Redux.createStore(reducer);
+let store = Redux.createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 class Gallery extends React.Component {
+  next() {
+    store.dispatch({
+      type: 'next'
+    });
+  }
+  previous() {
+    store.dispatch({
+      type: 'previous'
+    })
+  }
+
   render() {
-    let currentImage = this.props.images[0];
+    let currentIndex = store.getState().currentIndex;
+    let currentImage = this.props.images[currentIndex];
+
     return (
       <div>
-        <button>
+        <button onClick={() => this.previous()}>
           Previous
         </button>
-        <button>
+        <button onClick={() => this.next()}>
           Next
         </button>
         <br/>
@@ -45,3 +58,7 @@ function display() {
 }
 display();
 store.subscribe(display);
+store.dispatch({
+  type: 'get_images',
+  images: IMAGES
+});
